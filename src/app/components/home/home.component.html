@@ -1,0 +1,46 @@
+<div class="container">
+  <h4 class="text-center">Training Evaluation Form</h4>
+
+  <div>
+
+    <div class="input-group">
+      <span class="input-group-addon" id="date">Date: </span>
+      <input type="text" class="form-control border-none" id="date" [(ngModel)]="trainingForm.date" />
+    </div>
+
+    <div class="input-group">
+      <label for="location">Title and location of Training: </label>
+      <input type="text" class="form-control border-none" id="location" [(ngModel)]="trainingForm.location" />
+    </div>
+
+    <div class="input-group">
+      <label for="trainer">Trainer: </label>
+      <input type="text" class="form-control border-none" id="trainer" [(ngModel)]="trainingForm.trainer" />
+    </div>
+
+    <div *ngIf="trainingForm.questions" class="questions" [@listAnimation]="trainingForm.questions.length">
+      <div class="row">
+        <div class="col"></div>
+        <div class="col-4 question-header">
+          <span>Strongly Agree</span>
+          <span> Agree</span>
+          <span>Neutral</span>
+          <span>Disagree</span>
+          <span>Strongly Disagree</span>
+        </div>
+      </div>
+      <div *ngFor="let question of trainingForm.questions let idx = index" class="row question">
+
+        <span class="col"> {{idx +1}}. {{question.question}}</span>
+        <div class="col-4">
+          <input class="option" *ngFor="let option of question.options" type="radio" name="{{idx}}" [checked]="question.answear === option"
+            (change)="onSelectionChange(option, question)" [value]="option">
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-success" (click)="submitQuestions()">Submit</button>
+    </div>
+
+  </div>
+</div>
